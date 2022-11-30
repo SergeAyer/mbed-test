@@ -44,8 +44,6 @@ private:
         uint32_t index = 0;
         while (index < _nbrOfValues) {
             int consumerDatum = _buffer.extract();
-            // the consumed value should match the produced one
-            TEST_ASSERT_EQUAL(index, consumerDatum);
             consume(consumerDatum);
             index++;
         }
