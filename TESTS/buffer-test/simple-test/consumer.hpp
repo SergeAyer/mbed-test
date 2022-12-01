@@ -2,6 +2,11 @@
 
 #include "mbed.h"
 
+#include "mbed_trace.h"
+#if MBED_CONF_MBED_TRACE_ENABLE
+#define TRACE_GROUP "Producer"
+#endif // MBED_CONF_MBED_TRACE_ENABLE
+
 #include "buffer.hpp"
 
 class Consumer {
@@ -43,8 +48,9 @@ private:
     {
         uint32_t index = 0;
         while (index < _nbrOfValues) {
-            int consumerDatum = _buffer.extract();
+            int consumerDatum = _buffer.extract();            
             consume(consumerDatum);
+            tr_debug("Extracting data at index %" PRIu32 " (data %d)\n", index, consumerDatum);
             index++;
         }
     }

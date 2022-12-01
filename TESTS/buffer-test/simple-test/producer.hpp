@@ -2,10 +2,10 @@
 
 #include "mbed.h"
 
-// for tests
-#include "utest/utest.h"
-#include "unity/unity.h"
-#include "greentea-client/test_env.h"
+#include "mbed_trace.h"
+#if MBED_CONF_MBED_TRACE_ENABLE
+#define TRACE_GROUP "Producer"
+#endif // MBED_CONF_MBED_TRACE_ENABLE
 
 #include "buffer.hpp"
 
@@ -49,6 +49,7 @@ private:
         while (index < _nbrOfValues) {
             int producerDatum = produce();
             _buffer.append(producerDatum);
+            tr_debug("Producing data at index %" PRIu32 " (data %d)\n", index, producerDatum);            
             index++;
         }
     }
