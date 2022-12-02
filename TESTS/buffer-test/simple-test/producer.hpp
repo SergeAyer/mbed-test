@@ -7,7 +7,7 @@
 #define TRACE_GROUP "Producer"
 #endif // MBED_CONF_MBED_TRACE_ENABLE
 
-#include "buffer_fifo.hpp"
+#include "buffer.hpp"
 
 class Producer {
 public:
