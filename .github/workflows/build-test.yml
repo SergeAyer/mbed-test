@@ -12,8 +12,8 @@ jobs:
 
     strategy:
       matrix:
-        target: [K64F, DISCO_L475VG_IOT01A]
-        profile: [release, debug, develop]
+        target: [DISCO_L475VG_IOT01A]
+        profile: [debug]
             
 
     steps:
