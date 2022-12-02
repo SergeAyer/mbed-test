@@ -50,7 +50,7 @@ static Case cases[] = {
 
 static Specification specification(greentea_setup, cases);
 
-int main_once()
+int main()
 {
     return !Harness::run(specification);
 }
