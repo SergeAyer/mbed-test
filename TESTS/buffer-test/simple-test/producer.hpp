@@ -7,7 +7,7 @@
 #define TRACE_GROUP "Producer"
 #endif // MBED_CONF_MBED_TRACE_ENABLE
 
-#include "buffer.hpp"
+#include "buffer_fifo.hpp"
 
 class Producer {
 public:
@@ -47,9 +47,9 @@ private:
     {
         uint32_t index = 0;
         while (index < _nbrOfValues) {
-            int producerDatum = produce();
+            uint32_t producerDatum = produce();
             _buffer.append(producerDatum);
-            tr_debug("Producing data at index %" PRIu32 " (data %d)\n", index, producerDatum);            
+            tr_debug("Producing data at index %" PRIu32 " (data  %" PRIu32 ")\n", index, producerDatum);            
             index++;
         }
     }

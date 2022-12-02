@@ -16,8 +16,8 @@ public:
         _producerConsumerMutex.lock();
 
         // produce the data
-        _buffer[_index] = datum;
-        _index++;
+        _buffer[_appendIndex % kBufferSize] = datum;
+        _appendIndex++;
 
         // exit critical section
         _producerConsumerMutex.unlock();
@@ -34,10 +34,10 @@ public:
         // enter critical section
         _producerConsumerMutex.lock();
 
-        // consumer one element
-        _index--;
-        uint32_t datum = _buffer[_index];
-
+        // consumer one element        
+        uint32_t datum = _buffer[_extractIndex % kBufferSize];
+        _extractIndex++;
+        
         // exit critical section
         _producerConsumerMutex.unlock();
 
@@ -51,7 +51,8 @@ private:
     static constexpr uint8_t kBufferSize = 10;
 
     uint32_t _buffer[kBufferSize] = {0};
-    uint32_t _index = 0;
+    uint32_t _appendIndex = 0;
+    uint32_t _extractIndex = 0;
     Mutex _producerConsumerMutex;
     Semaphore _outSemaphore {0};
     Semaphore _inSemaphore {kBufferSize - 1};

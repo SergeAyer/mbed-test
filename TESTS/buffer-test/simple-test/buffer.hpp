@@ -8,19 +8,19 @@ public:
     {
     }
 
-    void append(int datum)
+    void append(uint32_t datum)
     {
-        _producerConsumerQueue.try_put_for(Kernel::wait_for_u32_forever, (int *) datum);
+        _producerConsumerQueue.try_put_for(Kernel::wait_for_u32_forever, (uint32_t *) datum);
     }
 
-    int extract(void)
+    uint32_t extract(void)
     {
-        int datum = 0;
-        _producerConsumerQueue.try_get_for(Kernel::wait_for_u32_forever, (int **) &datum);
+        uint32_t datum = 0;
+        _producerConsumerQueue.try_get_for(Kernel::wait_for_u32_forever, (uint32_t **) &datum);
         return datum;
     }
 
 private:
     static constexpr uint32_t kBufferSize = 10;
-    Queue<int, kBufferSize> _producerConsumerQueue;
+    Queue<uint32_t, kBufferSize> _producerConsumerQueue;
 };
